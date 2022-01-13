@@ -1,0 +1,9 @@
+.profile__add-button-vector {
+  width: 22px;
+}
+
+@media screen and (max-width: 928px) {
+  .profile__add-button-vector {
+    width: 16px;
+  }
+}
