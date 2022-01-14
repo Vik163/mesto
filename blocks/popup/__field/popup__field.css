@@ -1,5 +1,4 @@
 .popup__field {
-  display: inline;
   width: 358px;
   padding: 0 0 10px;
   border: none;
@@ -9,6 +8,7 @@
   line-height: 14px;
   font-weight: 400;
   margin-bottom: 30px;
+  outline: none;
 }
 
 .popup__field:nth-child(2) {

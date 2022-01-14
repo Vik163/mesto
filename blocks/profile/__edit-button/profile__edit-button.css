@@ -1,9 +1,12 @@
 .profile__edit-button {
   width: 24px;
+  height: 24px;
   margin-left: 18px;
   background: none;
   display: flex;
   align-items: stretch;
+  background-image: url(../../../images/Edit\ Button.svg);
+  background-repeat: no-repeat;
   padding: 0;
   border: none;
 }
@@ -13,5 +16,6 @@
     width: 18px;
     height: 18px;
     margin-left: 10px;
+    background-size: 18px 18px;
   }
 }
