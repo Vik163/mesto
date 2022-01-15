@@ -9,31 +9,28 @@ let popupButtonSubmit = popupSection.querySelector('.popup__submit');
 
 buttonEditProfile.addEventListener('click', () => {
   popupSection.classList.add('popup_opened');
+  popupFieldName.value = profileTitle.textContent;
+  popupFieldAboutMe.value = profileSubtitle.textContent;
 });
 
-function closePopup () {
+function closePopup() {
   popupSection.classList.remove('popup_opened');
 }
 
 buttonPopupClose.addEventListener('click', closePopup);
 
-popupFieldName.addEventListener('click',  () => {
+popupFieldName.addEventListener('click', () => {
   popupFieldName.value = '';
 });
 
-popupFieldAboutMe.addEventListener('click',  () => {
+popupFieldAboutMe.addEventListener('click', () => {
   popupFieldAboutMe.value = '';
 });
 
-function saveData () {
+function saveData() {
   profileTitle.textContent = popupFieldName.value;
   profileSubtitle.textContent = popupFieldAboutMe.value;
-  popupFieldName.setAttribute('value', popupFieldName.value);
-  popupFieldAboutMe.setAttribute('value', popupFieldAboutMe.value);
   closePopup();
 }
 
 popupButtonSubmit.addEventListener('click', saveData);
-
-
-
