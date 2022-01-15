@@ -7,6 +7,10 @@
   background: none;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
+  background-image: url(../../../images/add-button.svg);
+  background-repeat: no-repeat;
+  background-size: 22px 22px;
+  background-position: center;
   margin-right: 0;
   box-sizing: border-box;
 }
