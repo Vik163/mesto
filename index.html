@@ -22,11 +22,11 @@
           <img class="profile__avatar" src="images/image.png" alt="Кусто">
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button button-hover" aria-label="edit"></button>
+            <button class="profile__edit-button button-hover" type="button" aria-label="edit"></button>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__add-button button-hover" aria-label="add"></button>
+        <button class="profile__add-button button-hover" type="button" aria-label="add"></button>
       </section>
 
       <section class="cards content__cards">
@@ -35,42 +35,42 @@
             <img class="card__image" src="images/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
             <div class="card__info">
               <h2 class="card__title">Карачаевск</h2>
-              <button class="card__icon card__icon_active button-hover" aria-label="like"></button>
+              <button class="card__icon button-hover" type="button" aria-label="like"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="images/kirill-pershin-1404681-unsplash.jpg" alt="Эльбрус">
             <div class="card__info">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__icon card__icon_active button-hover" aria-label="like"></button>
+              <button class="card__icon button-hover" type="button" aria-label="like"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
             <div class="card__info">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__icon card__icon_active button-hover" aria-label="like"></button>
+              <button class="card__icon button-hover" type="button" aria-label="like"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="images/kirill-pershin-1404681-unsplash.jpg" alt="Эльбрус">
             <div class="card__info">
               <h2 class="card__title">Гора Эльбрус</h2>
-              <button class="card__icon card__icon_active button-hover" aria-label="like"></button>
+              <button class="card__icon button-hover" type="button" aria-label="like"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай">
             <div class="card__info">
               <h2 class="card__title">Домбай</h2>
-              <button class="card__icon card__icon_active button-hover" aria-label="like"></button>
+              <button class="card__icon button-hover" type="button" aria-label="like"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="images/kirill-pershin-1088404-unsplash.png" alt="Карачаевск">
             <div class="card__info">
-              <h2 class="card__title">Карачаево-Ч...</h2>
-              <button class="card__icon card__icon_active button-hover" aria-label="like"></button>
+              <h2 class="card__title">Карачаево-Черкесская республика</h2>
+              <button class="card__icon button-hover" type="button" aria-label="like"></button>
             </div>
           </li>
         </ul>
@@ -78,11 +78,13 @@
 
       <section class="popup">
         <div class="popup__container">
-          <button class="popup__close button-hover" aria-label="close"></button>
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__field popup__field_type_name" type="text" value="Жак-Ив Кусто">
-          <input class="popup__field popup__field_type_about-me" type="text" value="Исследователь океана">
-          <input class="popup__submit button-hover" type="submit" value="Сохранить">
+          <form action="#" name="editForm" class="popup__form">
+            <input class="popup__field popup__field_type_name" type="text" name="fieldName" value="Жак-Ив Кусто">
+            <input class="popup__field popup__field_type_about-me" type="text" name="fieldAboutMe" value="Исследователь океана">
+            <button class="popup__submit button-hover" type="submit">Сохранить</button>
+          </form>
         </div>
       </section>
     </main>

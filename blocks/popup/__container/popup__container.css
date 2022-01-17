@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  position: absolute;
+  position: relative;
   max-width: 430px;
   width: 100%;
   min-height: 330px;
