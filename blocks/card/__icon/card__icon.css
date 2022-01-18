@@ -9,6 +9,7 @@
   background-repeat: no-repeat;
   padding: 0;
   border: none;
+  cursor: pointer;
 }
 
 .card__icon:active {
