@@ -16,53 +16,43 @@ const titleInput = formElementCards.querySelector('.popup__field_type_title');
 const linkInput = formElementCards.querySelector('.popup__field_type_link');
 const cardsContainer = document.querySelector('.cards__container');
 const cardTemplate = document.querySelector('.card-template').content;
-const cardImage = document.querySelectorAll('.card__image');
 const cardTitle = document.querySelectorAll('.card__title');
+const cardIcon = document.querySelectorAll('.card__icon');
 let newCard;
-const initialCards = [{
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 function render() {
-  initialCards.forEach(renderCard);
+  initialCards.forEach(addArray);
 }
 
 render();
 
-function renderCard(el) {
+function renderCard() {
   newCard = cardTemplate.querySelector('.card').cloneNode(true);
-  cardsContainer.appendChild(newCard);
-  newCard.querySelector('.card__image').src = el.link;
-  newCard.querySelector('.card__image').alt = el.name;
-  newCard.querySelector('.card__title').textContent = el.name;
-
+  createCard();
   addListeners(newCard);
 }
 
+function createCard() {
+  cardsContainer.prepend(newCard);
+}
+
+function addArray(el) {
+  renderCard();
+  newCard.querySelector('.card__image').src = el.link;
+  newCard.querySelector('.card__title').textContent = el.name;
+  newCard.querySelector('.card__image').alt = el.name;
+}
+
+function addCards(evt) {
+  evt.preventDefault();
+  renderCard()
+  newCard.querySelector('.card__image').src = linkInput.value;
+  newCard.querySelector('.card__image').alt = titleInput.value;
+  newCard.querySelector('.card__title').textContent = titleInput.value;
+}
+
 function addLike(e) {
-  e.target.classList.add('card__icon_active');
+  e.target.classList.contains('card__icon_active') ? e.target.classList.remove('card__icon_active') : e.target.classList.add('card__icon_active');
 }
 
 function deleteCard(event) {
@@ -71,27 +61,24 @@ function deleteCard(event) {
 
 function addListeners(el) {
   el.querySelector('.card__basket').addEventListener('click', deleteCard);
-  el.querySelector('.card__image').addEventListener('click', openPopupImage);
+  el.querySelector('.card__image').addEventListener('click', () => {
+    openPopup(popupImage);
+    //openImagePopup(event);  Показывает неправильное применение, (event перечеркнут) но код не повторяется. Без передачи параметра не работает.
+  });
+  el.querySelector('.card__image').addEventListener('click', openImagePopup);
   el.querySelector('.card__icon').addEventListener('click', addLike);
 }
 
-function openPopupEditProfile() {
-  popupEditProfile.classList.add('popup_opened')
-  nameInput.ariaPlaceholder = profileTitle.textContent;
-  jobInput.ariaPlaceholder = profileSubtitle.textContent;
-  formElementProfile.addEventListener('submit', formSubmitHandler);
+function openPopup(el) {
+  el.classList.add('popup_opened')
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
 }
 
-function openPopupAddCards() {
-  popupEditCards.classList.add('popup_opened');
-  formElementCards.addEventListener('submit', formSubmitHandlerAddCards);
-}
-
-function openPopupImage(event) {
-  popupImage.classList.add('popup_opened');
-  popupImageOpen.src = event.target.src;
-  popupImageOpen.alt = event.target.alt;
-  popupImageCaption.textContent = event.target.alt;
+function openImagePopup(evt) {
+  popupImageOpen.src = evt.target.src;
+  popupImageOpen.alt = evt.target.alt;
+  popupImageCaption.textContent = evt.target.alt;
 }
 
 function closePopup(e) {
@@ -102,23 +89,18 @@ function closePopup(e) {
   }
 }
 
-function formSubmitHandler(evt) {
+function handleFormSubmitProfile(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
 }
 
-function formSubmitHandlerAddCards(evt) {
-  evt.preventDefault();
-  const addCard = cardTemplate.querySelector('.card').cloneNode(true);;
-  cardsContainer.prepend(addCard);
-  addCard.querySelector('.card__image').src = linkInput.value;
-  addCard.querySelector('.card__image').alt = titleInput.value;
-  addCard.querySelector('.card__title').textContent = titleInput.value;
-
-  addListeners(addCard);
-}
-
-buttonAddCards.addEventListener('click', openPopupAddCards);
-buttonEditProfile.addEventListener('click', openPopupEditProfile);
+buttonAddCards.addEventListener('click', () => {
+  openPopup(popupEditCards)
+});
+buttonEditProfile.addEventListener('click', () => {
+  openPopup(popupEditProfile)
+});
 popups.addEventListener('click', closePopup);
+formElementProfile.addEventListener('submit', handleFormSubmitProfile);
+formElementCards.addEventListener('submit', addCards);
