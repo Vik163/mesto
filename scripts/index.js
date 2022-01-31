@@ -21,37 +21,36 @@ const cardIcon = document.querySelectorAll('.card__icon');
 let newCard;
 
 function render() {
-  initialCards.forEach(addArray);
+  initialCards.forEach(renderCard);
 }
 
 render();
 
-function renderCard() {
+function renderCard(el) {
   newCard = cardTemplate.querySelector('.card').cloneNode(true);
-  createCard();
+
+  createCard(el);
+  return newCard;
 }
 
-function createCard() {
+function createCard(el) {
+  newCard.querySelector('.card__image').src = el.link;
+  newCard.querySelector('.card__title').textContent = el.name;
+  newCard.querySelector('.card__image').alt = el.name;
+
   cardsContainer.prepend(newCard);
   addListeners(newCard);
 }
 
-function addArray(el) {
-  renderCard();
-  newCard.querySelector('.card__image').src = el.link;
-  newCard.querySelector('.card__title').textContent = el.name;
-  newCard.querySelector('.card__image').alt = el.name;
-}
-
 function addCards(evt) {
   evt.preventDefault();
-  renderCard()
-  newCard.querySelector('.card__image').src = linkInput.value;
-  newCard.querySelector('.card__image').alt = titleInput.value;
-  newCard.querySelector('.card__title').textContent = titleInput.value;
-}
+  const formAddCards = {
+    link: linkInput.value,
+    name: titleInput.value
+  };
 
-/* Я понимаю, что делаю не совсем верно. addCards, addArray, должны быть объеденены в createCard. Но за все это время я так и не смог найти решения, как присваивать разные значения на один селектор в границах одной функции. Как записать одним значением, к примеру, link массива и value input. Может это и просто, но в голову не пришло, а может я и не прав. Кстати спасибо за комментарии. Очень помогают понять логику. */
+  renderCard(formAddCards);
+}
 
 function addLike(e) {
   e.target.classList.toggle('card__icon_active');
