@@ -18,7 +18,6 @@ const cardsContainer = document.querySelector('.cards__container');
 const cardTemplate = document.querySelector('.card-template').content;
 const cardTitle = document.querySelectorAll('.card__title');
 const cardIcon = document.querySelectorAll('.card__icon');
-let newCard;
 
 function render() {
   initialCards.forEach(renderCard);
@@ -27,19 +26,18 @@ function render() {
 render();
 
 function renderCard(el) {
-  newCard = cardTemplate.querySelector('.card').cloneNode(true);
-
-  createCard(el);
-  return newCard;
+  cardsContainer.append(createCard(el));
 }
 
 function createCard(el) {
+  const newCard = cardTemplate.querySelector('.card').cloneNode(true);
+
   newCard.querySelector('.card__image').src = el.link;
   newCard.querySelector('.card__title').textContent = el.name;
   newCard.querySelector('.card__image').alt = el.name;
 
-  cardsContainer.prepend(newCard);
   addListeners(newCard);
+  return newCard;
 }
 
 function addCards(evt) {
@@ -49,7 +47,7 @@ function addCards(evt) {
     name: titleInput.value
   };
 
-  renderCard(formAddCards);
+  cardsContainer.prepend(createCard(formAddCards));
 }
 
 function addLike(e) {
