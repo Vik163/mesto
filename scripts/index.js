@@ -26,7 +26,7 @@ function render() {
 render();
 
 function renderCard(el) {
-  cardsContainer.append(createCard(el));
+  cardsContainer.prepend(createCard(el));
 }
 
 function createCard(el) {
@@ -46,8 +46,7 @@ function addCards(evt) {
     link: linkInput.value,
     name: titleInput.value
   };
-
-  cardsContainer.prepend(createCard(formAddCards));
+  renderCard(formAddCards);
 }
 
 function addLike(e) {
