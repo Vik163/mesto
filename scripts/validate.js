@@ -31,8 +31,14 @@ const hideInputError = (formElement, inputElement, el) => {
 const setEventListeners = (formElement, el) => {
   const inputList = Array.from(formElement.querySelectorAll(el.inputSelector));
   const buttonElement = formElement.querySelector(el.submitButtonSelector);
-// два вызова, чтобы кнопка была неактивной и при открытии окна
+  // два вызова, чтобы кнопка была неактивной и при открытии окна
   toggleButtonState(inputList, buttonElement, el);
+
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    // Вызов при событии submit
+    toggleButtonState(inputList, buttonElement, el);
+  });
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
@@ -48,16 +54,13 @@ const enableValidation = (el) => {
   const formList = Array.from(document.querySelectorAll(el.formSelector));
 
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-
     setEventListeners(formElement, el);
   });
 };
 
 //3.22 Функция проверки валидности 2 полей
 const hasInvalidInput = (inputList) => {
+
   // фильтр на true невалидных полей
   return inputList.some((inputElement) => {
 
@@ -78,12 +81,3 @@ const toggleButtonState = (inputList, buttonElement, el) => {
     buttonElement.removeAttribute('disabled');
   }
 };
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-});

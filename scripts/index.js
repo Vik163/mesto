@@ -26,23 +26,25 @@ function render() {
 
 render();
 
-function renderCard(el) {
-  cardsContainer.prepend(createCard(el));
+function renderCard(item) {
+  cardsContainer.prepend(createCard(item));
 }
 
-function createCard(el) {
+function createCard(item) {
   const newCard = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardImage = newCard.querySelector('.card__image');
 
-  newCard.querySelector('.card__image').src = el.link;
-  newCard.querySelector('.card__title').textContent = el.name;
-  newCard.querySelector('.card__image').alt = el.name;
+  cardImage.src = item.link;
+  newCard.querySelector('.card__title').textContent = item.name;
+  cardImage.alt = item.name;
 
-  addListeners(newCard);
+  addListeners(newCard, cardImage);
   return newCard;
 }
 
-function addCards(e) {
-  e.preventDefault();
+function addCard(evt) {
+
+  evt.preventDefault();
   const formAddCards = {
     link: linkInput.value,
     name: titleInput.value
@@ -50,7 +52,7 @@ function addCards(e) {
   renderCard(formAddCards);
 }
 
-function addLike(e) {
+function toggleLike(e) {
   e.target.classList.toggle('card__icon_active');
 }
 
@@ -58,55 +60,81 @@ function deleteCard(event) {
   event.target.closest('.card').remove();
 }
 
-function addListeners(el) {
-  el.querySelector('.card__basket').addEventListener('click', deleteCard);
-  el.querySelector('.card__image').addEventListener('click', openImagePopup);
-  el.querySelector('.card__icon').addEventListener('click', addLike);
+function addListeners(newCard, cardImage) {
+  newCard.querySelector('.card__basket').addEventListener('click', deleteCard);
+  cardImage.addEventListener('click', () => {openImagePopup(cardImage)});
+  newCard.querySelector('.card__icon').addEventListener('click', toggleLike);
 }
 
-function openPopup(el) {
-  el.classList.add('popup_opened')
+function openPopup(item) {
+  item.classList.add('popup_opened');
+
   popups.focus();
-  popups.addEventListener('keydown', closePopup);
+  // Без фокуса не получилось, чтобы работала клавиатура
+  popups.addEventListener('keydown', (e) => {
+    handleEsc(e, item)
+  });
 }
 
-function openImagePopup(evt) {
+function openImagePopup(card) {
   openPopup(popupImage);
-  popupImageOpen.src = evt.target.src;
-  popupImageOpen.alt = evt.target.alt;
-  popupImageCaption.textContent = evt.target.alt;
+  popupImageOpen.src = card.src;
+  popupImageOpen.alt = card.alt;
+  popupImageCaption.textContent = card.alt;
 }
 
-function closePopup(e) {
-  if (e.key === 'Enter' || e.key === 'Escape' || e.target.classList.contains('popup') || e.target.classList.contains('popup__close') || e.target.classList.contains('popup__submit')) {
-
-    Array.from(popups.querySelectorAll('.popup')).forEach(item => {
-      item.classList.remove('popup_opened');
-      popups.removeEventListener('keydown', closePopup);
-    });
+function handleEsc(e, item) {
+  if (e.key === 'Escape') {
+    closePopup(item);
   }
 }
 
-function handleFormSubmitProfile(e) {
+function closePopup(item) {
+  item.classList.remove('popup_opened');
+
+  popups.removeEventListener('keydown', (e) => {
+    handleEsc(e, item)
+  });
+}
+
+function handleFormSubmitProfile(e, item) {
   e.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
+  closePopup(item);
 }
 
 buttonAddCards.addEventListener('click', () => {
-  openPopup(popupEditCards)
+  openPopup(popupEditCards);
 });
+
 buttonEditProfile.addEventListener('click', () => {
   openPopup(popupEditProfile)
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 });
-popups.addEventListener('click', closePopup);
-formElementProfile.addEventListener('submit', handleFormSubmitProfile);
-formElementCards.addEventListener('submit', addCards);
-formElementCards.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    addCards(e);
-    closePopup(e);
+
+formElementProfile.addEventListener('submit', (e) => {
+  handleFormSubmitProfile(e, popupEditProfile)
+});
+
+formElementCards.addEventListener('submit', evt => {
+  addCard(evt);
+  linkInput.value = null;
+  titleInput.value = null;
+  closePopup(popupEditCards)
+});
+popups.addEventListener('click', (e) => {
+  if (e.target.classList.contains('popup') || e.target.classList.contains('popup__close')) {
+    closePopup(e.target.closest('.popup'));
   }
+});
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
 });

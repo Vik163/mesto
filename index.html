@@ -33,55 +33,55 @@
         <ul class="cards__container">
         </ul>
       </section>
-
-      <section class="popups" tabindex="0">
-        <div class="popup popup_type_profile">
-          <div class="popup__container">
-            <button class="popup__close button-hover" type="button" aria-label="close"></button>
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <form action="#" name="editForm" class="popup__form popup__form_type_profile" novalidate>
-              <label class="popup__label">
-              <input class="popup__input popup__input_type_name" id="name-input" type="text" name="inputName" placeholder="Имя"
-                value="" minlength="2" maxlength="40" required>
-                <span class="popup__input-error name-input-error"></span>
-              </label>
-              <label class="popup__label">
-              <input class="popup__input popup__input_type_about-me" id="about-me-input" type="text" placeholder="О себе"
-                name="inputAboutMe" value="" minlength="2" maxlength="200" required>
-                <span class="popup__input-error about-me-input-error"></span>
-              </label>
-              <button class="popup__submit button-hover" type="submit">Сохранить</button>
-            </form>
-          </div>
-        </div>
-        <div class="popup popup_type_cards">
-          <div class="popup__container">
-            <button class="popup__close button-hover" type="button" aria-label="close"></button>
-            <h2 class="popup__title">Новое место</h2>
-            <form action="#" name="editForm" class="popup__form popup__form_type_cards" novalidate>
-              <label class="popup__label">
-              <input class="popup__input popup__input_type_title" id="title-input" type="text" placeholder="Название" name="inputTitle"
-                value="" minlength="2" maxlength="30" required>
-                <span class="popup__input-error title-input-error"></span>
-              </label>
-              <label class="popup__label">
-              <input class="popup__input popup__input_type_link" id="url-input" type="url" placeholder="Ссылка на картинку"
-                name="inputLink" value="" required>
-                <span class="popup__input-error url-input-error"></span>
-              </label>
-              <button class="popup__submit button-hover" type="submit">Сохранить</button>
-            </form>
-          </div>
-        </div>
-        <div class="popup popup_type_image">
-          <div class="popup__container-image">
-            <button class="popup__close button-hover" type="button" aria-label="close"></button>
-            <img class="popup__image" src="#" alt="">
-            <p class="popup__caption"></p>
-          </div>
-        </div>
-      </section>
     </main>
+
+    <section class="popups" tabindex="0">
+      <div class="popup popup_type_profile">
+        <div class="popup__container">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form action="#" name="editForm" class="popup__form popup__form_type_profile" novalidate>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_name" id="name-input" type="text" name="inputName"
+                placeholder="Имя" value="" minlength="2" maxlength="40" required>
+              <span class="popup__input-error name-input-error"></span>
+            </label>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_about-me" id="about-me-input" type="text"
+                placeholder="О себе" name="inputAboutMe" value="" minlength="2" maxlength="200" required>
+              <span class="popup__input-error about-me-input-error"></span>
+            </label>
+            <button class="popup__submit button-hover" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_cards" tabindex="0">
+        <div class="popup__container">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <h2 class="popup__title">Новое место</h2>
+          <form action="#" name="editForm" class="popup__form popup__form_type_cards" novalidate>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_title" id="title-input" type="text" placeholder="Название"
+                name="inputTitle" value="" minlength="2" maxlength="30" required>
+              <span class="popup__input-error title-input-error"></span>
+            </label>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_link" id="url-input" type="url"
+                placeholder="Ссылка на картинку" name="inputLink" value="" required>
+              <span class="popup__input-error url-input-error"></span>
+            </label>
+            <button class="popup__submit button-hover" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_image">
+        <div class="popup__container-image">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <img class="popup__image" src="#" alt="">
+          <p class="popup__caption"></p>
+        </div>
+      </div>
+    </section>
 
     <footer class="footer page__footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -101,8 +101,8 @@
   </template>
 
   <script src="scripts/card.js"></script>
-  <script src="scripts/index.js"></script>
   <script src="scripts/validate.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
 
 </html>
