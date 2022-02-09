@@ -62,15 +62,19 @@ function deleteCard(event) {
 
 function addListeners(newCard, cardImage) {
   newCard.querySelector('.card__basket').addEventListener('click', deleteCard);
-  cardImage.addEventListener('click', () => {openImagePopup(cardImage)});
+  cardImage.addEventListener('click', () => {
+    openImagePopup(cardImage)
+  });
   newCard.querySelector('.card__icon').addEventListener('click', toggleLike);
 }
 
 function openPopup(item) {
   item.classList.add('popup_opened');
 
-  popups.focus();
   // Без фокуса не получилось, чтобы работала клавиатура
+  popups.focus();
+  window.scrollTo(0, 0);
+
   popups.addEventListener('keydown', (e) => {
     handleEsc(e, item)
   });
