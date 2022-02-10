@@ -71,13 +71,10 @@ function addListeners(newCard, cardImage) {
 function openPopup(item) {
   item.classList.add('popup_opened');
 
-  // Без фокуса не получилось, чтобы работала клавиатура
   popups.focus();
   window.scrollTo(0, 0);
 
-  popups.addEventListener('keydown', (e) => {
-    handleEsc(e, item)
-  });
+  popups.addEventListener('keydown', handleEsc);
 }
 
 function openImagePopup(card) {
@@ -87,47 +84,52 @@ function openImagePopup(card) {
   popupImageCaption.textContent = card.alt;
 }
 
-function handleEsc(e, item) {
+function openPopupProfile() {
+  openPopup(popupEditProfile)
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+}
+
+// Честно признаюсь, я не вкурил, что можно найти по селектору
+// уже открытый попап и передать его в качестве аргумента.
+function handleEsc(e) {
   if (e.key === 'Escape') {
-    closePopup(item);
+    const activePopup = document.querySelector('.popup_opened');
+    closePopup(activePopup);
   }
 }
 
 function closePopup(item) {
   item.classList.remove('popup_opened');
 
-  popups.removeEventListener('keydown', (e) => {
-    handleEsc(e, item)
-  });
+  popups.removeEventListener('keydown', handleEsc);
 }
 
-function handleFormSubmitProfile(e, item) {
+function handleFormSubmitProfile(e) {
   e.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  closePopup(item);
+  closePopup(popupEditProfile);
+}
+
+function handleNewCardSubmit (evt) {
+  addCard(evt);
+  formElementCards.reset();
+  closePopup(popupEditCards)
 }
 
 buttonAddCards.addEventListener('click', () => {
   openPopup(popupEditCards);
 });
 
-buttonEditProfile.addEventListener('click', () => {
-  openPopup(popupEditProfile)
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
-});
+buttonEditProfile.addEventListener('click', openPopupProfile);
 
 formElementProfile.addEventListener('submit', (e) => {
   handleFormSubmitProfile(e, popupEditProfile)
 });
 
-formElementCards.addEventListener('submit', evt => {
-  addCard(evt);
-  linkInput.value = null;
-  titleInput.value = null;
-  closePopup(popupEditCards)
-});
+formElementCards.addEventListener('submit', handleNewCardSubmit);
+
 popups.addEventListener('click', (e) => {
   if (e.target.classList.contains('popup') || e.target.classList.contains('popup__close')) {
     closePopup(e.target.closest('.popup'));
