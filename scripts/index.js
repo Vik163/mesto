@@ -1,5 +1,3 @@
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
 const popups = document.querySelector(".popups");
 const popupEditProfile = popups.querySelector(".popup_type_profile");
 const popupEditCards = popups.querySelector(".popup_type_cards");
@@ -53,6 +51,9 @@ const formSettings = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_active",
 };
+
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 
 initialCards.forEach(renderCard);
 
