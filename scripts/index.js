@@ -1,5 +1,6 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
+
 const popups = document.querySelector(".popups");
 const popupEditProfile = popups.querySelector(".popup_type_profile");
 const popupEditCards = popups.querySelector(".popup_type_cards");
@@ -53,15 +54,27 @@ const formSettings = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_active",
 };
+const formValidatorCards = new FormValidator(formSettings, formElementCards);
+const formValidatorProfile = new FormValidator(
+  formSettings,
+  formElementProfile
+);
 
-initialCards.forEach(renderCard);
+formValidatorProfile.enableValidation();
 
-function renderCard(item) {
-  const card = new Card(item.name, item.link, ".card-template");
+formValidatorCards.enableValidation();
+
+initialCards.forEach(createCard);
+
+function createCard(item) {
+  const card = new Card(item.name, item.link, ".card-template", openImagePopup);
   const cardElement = card.generateCard();
 
-  cardsContainer.prepend(cardElement);
-  addListeners(cardElement);
+  renderCard(cardElement);
+}
+
+function renderCard(card) {
+  cardsContainer.prepend(card);
 }
 
 function addCard(evt) {
@@ -70,37 +83,28 @@ function addCard(evt) {
     link: linkInput.value,
     name: titleInput.value,
   };
-  renderCard(formAddCards);
-}
-
-function addListeners(cardElement) {
-  const cardImage = cardElement.querySelector(".card__image");
-
-  cardImage.addEventListener("click", () => {
-    openImagePopup(cardImage);
-  });
+  createCard(formAddCards);
 }
 
 function openPopup(item) {
   item.classList.add("popup_opened");
-
-  popups.focus();
-  window.scrollTo(0, 0);
-
-  popups.addEventListener("keydown", handleEsc);
+  document.addEventListener("keydown", handleEsc);
+  // popups.addEventListener("keydown", handleEsc); не работает без focus(), не знаю как добиться
+  // а фокусировка прокручивает страницу
 }
 
-function openImagePopup(card) {
+function openImagePopup(title, link) {
   openPopup(popupImage);
-  popupImageOpen.src = card.src;
-  popupImageOpen.alt = card.alt;
-  popupImageCaption.textContent = card.alt;
+  popupImageOpen.src = link;
+  popupImageOpen.alt = title;
+  popupImageCaption.textContent = title;
 }
 
 function openPopupProfile() {
   openPopup(popupEditProfile);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  formValidatorProfile.toggleButtonState();
 }
 
 function handleEsc(e) {
@@ -113,7 +117,7 @@ function handleEsc(e) {
 function closePopup(item) {
   item.classList.remove("popup_opened");
 
-  popups.removeEventListener("keydown", handleEsc);
+  document.removeEventListener("keydown", handleEsc);
 }
 
 function handleFormSubmitProfile(e) {
@@ -129,27 +133,13 @@ function handleNewCardSubmit(evt) {
   closePopup(popupEditCards);
 }
 
-function addClassValidation(item) {
-  const formList = Array.from(
-    document.querySelectorAll(formSettings.formSelector)
-  );
-  formList.forEach((formElement) => {
-    if (formElement.classList.contains(item)) {
-      const formValidator = new FormValidator(formSettings, formElement);
-
-      formValidator.enableValidation();
-    }
-  });
-}
-
 buttonAddCards.addEventListener("click", () => {
   openPopup(popupEditCards);
-  addClassValidation("popup__form_type_cards");
+  formValidatorCards.toggleButtonState();
 });
 
 buttonEditProfile.addEventListener("click", () => {
   openPopupProfile();
-  addClassValidation("popup__form_type_profile");
 });
 
 formElementProfile.addEventListener("submit", (e) => {

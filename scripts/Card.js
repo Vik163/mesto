@@ -1,9 +1,10 @@
 //
 export class Card {
-  constructor(text, image, cardSelector) {
+  constructor(text, image, cardSelector, openImagePopup) {
     this._text = text;
     this._image = image;
     this._cardSelector = cardSelector;
+    this._openImagePopup = openImagePopup;
   }
 
   _getTemplate() {
@@ -17,32 +18,36 @@ export class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector(".card__image");
     this._setEventListeners();
 
-    this._element.querySelector(".card__image").src = this._image;
-    this._element.querySelector(".card__image").alt = this._text;
+    this._cardImage.src = this._image;
+    this._cardImage.alt = this._text;
     this._element.querySelector(".card__title").textContent = this._text;
     return this._element;
   }
 
   _setEventListeners() {
+    this._cardIcon = this._element.querySelector(".card__icon");
     this._element
       .querySelector(".card__basket")
       .addEventListener("click", () => {
         this._deleteCard();
       });
-    this._element.querySelector(".card__icon").addEventListener("click", () => {
+    this._cardIcon.addEventListener("click", () => {
       this._toggleLike();
+    });
+    this._cardImage.addEventListener("click", () => {
+      this._openImagePopup(this._text, this._image);
     });
   }
 
   _toggleLike() {
-    this._element
-      .querySelector(".card__icon")
-      .classList.toggle("card__icon_active");
+    this._cardIcon.classList.toggle("card__icon_active");
   }
 
   _deleteCard() {
-    this._element.closest(".card").remove();
+    this._element.remove();
+    this._element = null;
   }
 }

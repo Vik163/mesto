@@ -35,7 +35,7 @@ export class FormValidator {
     this._errorElement.textContent = "";
   }
 
-  _toggleButtonState() {
+  toggleButtonState() {
     // Проверка валидности 2 полей
     if (this._hasInvalidInput(this._inputList)) {
       this._buttonElement.setAttribute("disabled", true);
@@ -55,12 +55,10 @@ export class FormValidator {
       this._data.submitButtonSelector
     );
     // два вызова, чтобы кнопка была неактивной и при открытии окна
-    this._toggleButtonState();
+    this.toggleButtonState();
 
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      // Вызов при событии submit
-      this._toggleButtonState();
     });
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
@@ -68,7 +66,7 @@ export class FormValidator {
 
         this._checkValid();
         //3.21 Функция переключения состояния кнопки submit
-        this._toggleButtonState();
+        this.toggleButtonState();
       });
     });
   }
