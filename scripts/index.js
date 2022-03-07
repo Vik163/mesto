@@ -64,18 +64,21 @@ formValidatorProfile.enableValidation();
 
 formValidatorCards.enableValidation();
 
-initialCards.forEach(createCard);
+initialCards.forEach(renderCard);
 
 function createCard(item) {
   const card = new Card(item.name, item.link, ".card-template", openImagePopup);
   const cardElement = card.generateCard();
-
-  renderCard(cardElement);
+  return cardElement;
 }
 
 function renderCard(card) {
-  cardsContainer.prepend(card);
+  cardsContainer.prepend(createCard(card));
 }
+
+//Не совсем понял задание убрать эффект наведения оверлея. Там переход "transition: 0.4s" (отключил)
+//меняет непрозрачность (так было в задании к 5 работе). 7. Плавное открытие и закрытие попапов
+//Если я, конечно, думаю о том.
 
 function addCard(evt) {
   evt.preventDefault();
@@ -83,27 +86,25 @@ function addCard(evt) {
     link: linkInput.value,
     name: titleInput.value,
   };
-  createCard(formAddCards);
+  renderCard(formAddCards);
 }
 
 function openPopup(item) {
   item.classList.add("popup_opened");
   document.addEventListener("keydown", handleEsc);
-  // popups.addEventListener("keydown", handleEsc); не работает без focus(), не знаю как добиться
-  // а фокусировка прокручивает страницу
 }
 
 function openImagePopup(title, link) {
-  openPopup(popupImage);
   popupImageOpen.src = link;
   popupImageOpen.alt = title;
   popupImageCaption.textContent = title;
+  openPopup(popupImage);
 }
 
 function openPopupProfile() {
-  openPopup(popupEditProfile);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  openPopup(popupEditProfile);
   formValidatorProfile.toggleButtonState();
 }
 
@@ -122,15 +123,15 @@ function closePopup(item) {
 
 function handleFormSubmitProfile(e) {
   e.preventDefault();
+  closePopup(popupEditProfile);
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  closePopup(popupEditProfile);
 }
 
 function handleNewCardSubmit(evt) {
   addCard(evt);
-  formElementCards.reset();
   closePopup(popupEditCards);
+  formElementCards.reset();
 }
 
 buttonAddCards.addEventListener("click", () => {
