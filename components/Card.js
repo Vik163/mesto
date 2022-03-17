@@ -4,7 +4,7 @@ export class Card {
     this._text = text;
     this._image = image;
     this._cardSelector = cardSelector;
-    this._openImagePopup = openImagePopup;
+    this.openImagePopup = openImagePopup;
   }
 
   _getTemplate() {
@@ -38,7 +38,7 @@ export class Card {
       this._toggleLike();
     });
     this._cardImage.addEventListener("click", () => {
-      this._openImagePopup(this._text, this._image);
+      this.openImagePopup(this._text, this._image);
     });
   }
 
