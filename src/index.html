@@ -4,7 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
   <title>Mesto</title>
 </head>
 
@@ -12,14 +11,14 @@
   <div class="page">
 
     <header class="header page__header">
-      <img class="header__logo" src="images/Vector.svg" alt="Логотип">
+      <img class="header__logo" src="<%=require('./images/Vector.svg')%>" alt="Логотип">
     </header>
 
     <main class="content">
 
       <section class="profile content__profile">
         <div class="profile__container">
-          <img class="profile__avatar" src="images/image.png" alt="Кусто">
+          <img class="profile__avatar" src="<%=require('./images/image.png')%>" alt="Кусто">
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit-button button-hover" type="button" aria-label="edit"></button>
@@ -99,8 +98,6 @@
       </div>
     </li>
   </template>
-
-  <script type="module" src="pages/index.js"></script>
 </body>
 
 </html>

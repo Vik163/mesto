@@ -5,6 +5,7 @@ import { FormValidator } from "../components/FormValidator.js";
 import { Popup } from "../components/Popup.js";
 import { PopupWithImage } from "../components/PicturePopup.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import "./index.css";
 
 const popups = document.querySelector(".popups");
 const popupEditProfile = popups.querySelector(".popup_type_profile");
