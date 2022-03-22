@@ -28,13 +28,13 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._cardIcon = this._element.querySelector(".card__icon");
+    this._likeButton = this._element.querySelector(".card__icon");
     this._element
       .querySelector(".card__basket")
       .addEventListener("click", () => {
         this._deleteCard();
       });
-    this._cardIcon.addEventListener("click", () => {
+    this._likeButton.addEventListener("click", () => {
       this._toggleLike();
     });
     this._cardImage.addEventListener("click", () => {
@@ -43,7 +43,7 @@ export class Card {
   }
 
   _toggleLike() {
-    this._cardIcon.classList.toggle("card__icon_active");
+    this._likeButton.classList.toggle("card__icon_active");
   }
 
   _deleteCard() {

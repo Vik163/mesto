@@ -1,36 +1,32 @@
 export class Popup {
   constructor(popupSelector) {
-    this._popupSelector = popupSelector;
+    this._popup = document.querySelector(popupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
-  open(item) {
-    item.classList.add("popup_opened");
-    // document.addEventListener("keydown", this._handleEscClose.bind(this));
+  open() {
+    this._popup.classList.add("popup_opened");
+    document.addEventListener("keydown", this._handleEscClose);
   }
-  // Пришлось отказаться от такого варианта. Не получается удалить слушатель.
-  // Других вариантов решения не нашел.
 
-  close(item) {
-    item.classList.remove("popup_opened");
-    // document.removeEventListener("keydown", this._handleEscClose.bind(this));
+  close() {
+    this._popup.classList.remove("popup_opened");
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
-      const activePopup = document.querySelector(".popup_opened");
-      this.close(activePopup);
+      this.close();
     }
   }
 
   setEventListeners() {
-    document.addEventListener("keydown", this._handleEscClose.bind(this));
-
-    this._popupSelector.addEventListener("click", (e) => {
+    this._popup.addEventListener("click", (e) => {
       if (
         e.target.classList.contains("popup") ||
         e.target.classList.contains("popup__close")
       ) {
-        this.close(e.target.closest(".popup"));
+        this.close();
       }
     });
   }

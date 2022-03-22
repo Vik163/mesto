@@ -46,6 +46,15 @@ export class FormValidator {
     }
   }
 
+  // Проверка на ошибки инпутов
+  resetValidation() {
+    this.toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._inputElement = inputElement;
+      this._hideInputError();
+    });
+  }
+
   //2 установка обработчиков на инпуты
   _setEventListeners() {
     this._inputList = Array.from(

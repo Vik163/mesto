@@ -5,11 +5,19 @@ export class PopupWithImage extends Popup {
     this._data = data;
   }
 
-  open(popupImage, title, link) {
+  open(title, link) {
     const { popupImageOpen, popupImageCaption } = this._data;
     popupImageOpen.src = link;
     popupImageOpen.alt = title;
     popupImageCaption.textContent = title;
-    super.open(popupImage);
+    super.open();
+  }
+
+  close() {
+    super.close();
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
   }
 }
