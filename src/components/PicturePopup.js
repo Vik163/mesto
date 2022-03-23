@@ -12,12 +12,4 @@ export class PopupWithImage extends Popup {
     popupImageCaption.textContent = title;
     super.open();
   }
-
-  close() {
-    super.close();
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-  }
 }

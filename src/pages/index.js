@@ -19,11 +19,6 @@ import { PopupWithImage } from "../components/PicturePopup.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import "./index.css";
 
-//По поводу ошибки в консоли. Сам я не смог устранить, не нашел решения. Просил помощи у наставника.
-//Его ответ: (Скачал сейчас твой репозиторий, становил заново модули и всё работает. Попробуй удалить директорию, потом сделать git clone, потом npm ci для установки зависимостей. После этого запускай npm run dev)
-// Сделал по его совету, не помогло. Ошибка выходит только в яндекс браузере, в google и firefox ee нет, но в них выходит ошибка favicon.ico
-//по ней он ответил (Ошибка с favicon - это нормально, потому что мы не добавляли иконку сайта в проект)
-
 const formValidatorCards = new FormValidator(formSettings, formElementCards);
 const formValidatorProfile = new FormValidator(
   formSettings,
