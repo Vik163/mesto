@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+<script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
+
+<body class="root">
+  <div class="page">
+
+    <header class="header page__header">
+      <img class="header__logo" src="bbe2a6eafac19c3d031c.svg" alt="Логотип">
+    </header>
+
+    <main class="content">
+
+      <section class="profile content__profile">
+        <div class="profile__container">
+          <img class="profile__avatar" src="4b160972545ef3a41984.png" alt="Кусто">
+          <div class="profile__info">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button button-hover" type="button" aria-label="edit"></button>
+            <p class="profile__subtitle">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__add-button button-hover" type="button" aria-label="add"></button>
+      </section>
+
+      <section class="cards content__cards">
+        <ul class="cards__container">
+        </ul>
+      </section>
+    </main>
+
+    <footer class="footer page__footer">
+      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+    </footer>
+
+    <section class="popups" tabindex="0">
+      <div class="popup popup_type_profile">
+        <div class="popup__container">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form action="#" name="editForm" class="popup__form popup__form_type_profile" novalidate>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_name" id="name-input" type="text" name="inputName"
+                placeholder="Имя" value="" minlength="2" maxlength="40" required>
+              <span class="popup__input-error name-input-error"></span>
+            </label>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_about-me" id="about-me-input" type="text"
+                placeholder="О себе" name="inputAboutMe" value="" minlength="2" maxlength="200" required>
+              <span class="popup__input-error about-me-input-error"></span>
+            </label>
+            <button class="popup__submit button-hover" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_cards">
+        <div class="popup__container">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <h2 class="popup__title">Новое место</h2>
+          <form action="#" name="editForm" class="popup__form popup__form_type_cards" novalidate>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_title" id="title-input" type="text" placeholder="Название"
+                name="name" value="" minlength="2" maxlength="30" required>
+              <span class="popup__input-error title-input-error"></span>
+            </label>
+            <label class="popup__label">
+              <input class="popup__input popup__input_type_link" id="url-input" type="url"
+                placeholder="Ссылка на картинку" name="link" value="" required>
+              <span class="popup__input-error url-input-error"></span>
+            </label>
+            <button class="popup__submit button-hover" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_image">
+        <div class="popup__container-image">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <img class="popup__image" src="#" alt="">
+          <p class="popup__caption"></p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <template class="card-template">
+    <li class="card">
+      <img class="card__image" src="#" alt="">
+      <button class="card__basket button-hover" type="button" aria-label="basket"></button>
+      <div class="card__info">
+        <h2 class="card__title"></h2>
+        <button class="card__icon" type="button" aria-label="like"></button>
+      </div>
+    </li>
+  </template>
+</body>
+
+</html>
