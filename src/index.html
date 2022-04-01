@@ -18,7 +18,10 @@
 
       <section class="profile content__profile">
         <div class="profile__container">
-          <img class="profile__avatar" src="<%=require('./images/image.png')%>" alt="Кусто">
+          <div class="profile__avatar-container">
+            <img class="profile__avatar" src="<%=require('./images/image.png')%>" alt="Кусто">
+            <button class="profile__avatar-button button-hover" type="button" aria-label="edit"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__edit-button button-hover" type="button" aria-label="edit"></button>
@@ -27,6 +30,7 @@
         </div>
         <button class="profile__add-button button-hover" type="button" aria-label="add"></button>
       </section>
+
 
       <section class="cards content__cards">
         <ul class="cards__container">
@@ -39,6 +43,29 @@
     </footer>
 
     <section class="popups" tabindex="0">
+      <div class="popup popup_type_profile-avatar">
+        <div class="popup__container popup__container_type_profile-avatar">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <form action="#" name="editForm" class="popup__form popup__form_type_profile-avatar" novalidate>
+            <label class="popup__label popup__label_type_profile-avatar">
+              <input class="popup__input popup__input_type_link" id="url-input" type="url"
+                placeholder="Ссылка на картинку" name="link" value="" required>
+              <span class="popup__input-error url-input-error"></span>
+            </label>
+            <button class="popup__submit button-hover" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup popup_type_delete-card">
+        <div class="popup__container popup__container_type_delete-card">
+          <button class="popup__close button-hover" type="button" aria-label="close"></button>
+          <h2 class="popup__title popup__title_type_delete-card">Вы уверены?</h2>
+          <form action="#" name="editForm" class="popup__form popup__form_type_delete-card" novalidate>
+            <button class="popup__submit button-hover" type="submit">Да</button>
+          </form>
+        </div>
+      </div>
       <div class="popup popup_type_profile">
         <div class="popup__container">
           <button class="popup__close button-hover" type="button" aria-label="close"></button>
@@ -91,13 +118,20 @@
   <template class="card-template">
     <li class="card">
       <img class="card__image" src="#" alt="">
-      <button class="card__basket button-hover" type="button" aria-label="basket"></button>
       <div class="card__info">
         <h2 class="card__title"></h2>
-        <button class="card__icon" type="button" aria-label="like"></button>
+        <div class="card__likes-info">
+          <button class="card__icon" type="button" aria-label="like"></button>
+          <p class="card__likes-num">0</p>
+        </div>
       </div>
     </li>
   </template>
+
+  <template class="card-basket-template">
+    <button class="card__basket button-hover" type="button" aria-label="basket"></button>
+  </template>
+
 </body>
 
 </html>

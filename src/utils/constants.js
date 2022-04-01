@@ -6,6 +6,12 @@ export const buttonEditProfile = document.querySelector(
   ".profile__edit-button"
 );
 export const buttonAddCards = document.querySelector(".profile__add-button");
+export const formElementAvatar = document.querySelector(
+  ".popup__form_type_profile-avatar"
+);
+export const buttonEditAvatar = document.querySelector(
+  ".profile__avatar-button"
+);
 export const formElementProfile = document.querySelector(
   ".popup__form_type_profile"
 );
