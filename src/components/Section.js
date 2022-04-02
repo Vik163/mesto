@@ -1,14 +1,18 @@
 export default class Section {
-  constructor({ data, renderer }, containerSelector) {
-    this._initialArray = data;
+  constructor({ renderer }, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
 
-  renderItems() {
-    this._initialArray.forEach((item) => {
+  renderItems(data) {
+    data.forEach((item) => {
       this.addItem(this._renderer(item));
+      this.addNumLikes(item);
     });
+  }
+
+  addNumLikes(obj) {
+    document.querySelector(".card__likes-num").textContent = obj.likes.length;
   }
 
   addItem(item) {

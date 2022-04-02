@@ -1,11 +1,20 @@
 //
 export class Card {
-  constructor(text, image, cardSelector, openImagePopup, openDeleteCardPopup) {
-    this._text = text;
-    this._image = image;
+  constructor(
+    obj,
+    { addLike, deleteLike },
+    cardSelector,
+    openImagePopup,
+    openDeleteCardPopup
+  ) {
+    this._obj = obj;
+    this._text = obj.name;
+    this._image = obj.link;
     this._cardSelector = cardSelector;
     this.openImagePopup = openImagePopup;
     this.openDeleteCardPopup = openDeleteCardPopup;
+    this.addLike = addLike;
+    this.deleteLike = deleteLike;
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector(".card__image");
   }
@@ -41,7 +50,7 @@ export class Card {
     this.cardBasket = this._getTemplateBasket();
 
     this.cardBasket.addEventListener("click", () => {
-      this.openDeleteCardPopup(this._element);
+      this.openDeleteCardPopup(this._obj, this._element);
     });
     this._renderBasket();
   }
@@ -62,6 +71,9 @@ export class Card {
 
   _toggleLike() {
     this._likeButton.classList.toggle("card__icon_active");
+    this._likeButton.classList.contains("card__icon_active")
+      ? this.addLike(this._obj, this._element)
+      : this.deleteLike(this._obj, this._element);
   }
 
   deleteCard(element) {
