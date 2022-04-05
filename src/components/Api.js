@@ -3,18 +3,20 @@ class Api {
     this._settings = settings;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    } else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+  }
+
   getUserInfo() {
     return fetch(`${this._settings.baseUrl}/users/me`, {
       headers: {
         authorization: "fcbbb83d-e200-4418-b5ab-2457f84f25b4",
       },
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   getInitialCards() {
@@ -22,13 +24,7 @@ class Api {
       headers: {
         authorization: "fcbbb83d-e200-4418-b5ab-2457f84f25b4",
       },
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   addCard(formValues) {
@@ -42,13 +38,7 @@ class Api {
         name: formValues.name,
         link: formValues.link,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   deleteCard(obj) {
@@ -57,13 +47,7 @@ class Api {
       headers: {
         authorization: "fcbbb83d-e200-4418-b5ab-2457f84f25b4",
       },
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   sendInfoProfile(formValues) {
@@ -77,13 +61,7 @@ class Api {
         name: formValues.inputName,
         about: formValues.inputAboutMe,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   addAvatar(formValues) {
@@ -96,13 +74,7 @@ class Api {
       body: JSON.stringify({
         avatar: formValues.link,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   addLikes(obj) {
@@ -115,13 +87,7 @@ class Api {
       body: JSON.stringify({
         likes: obj.likes,
       }),
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   deleteLike(obj) {
@@ -130,17 +96,9 @@ class Api {
       headers: {
         authorization: "fcbbb83d-e200-4418-b5ab-2457f84f25b4",
       },
-    })
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`)
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 }
-
-//
 
 //
 export const api = new Api({

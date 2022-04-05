@@ -7,12 +7,7 @@ export default class Section {
   renderItems(data) {
     data.forEach((item) => {
       this.addItem(this._renderer(item));
-      this.addNumLikes(item);
     });
-  }
-
-  addNumLikes(obj) {
-    document.querySelector(".card__likes-num").textContent = obj.likes.length;
   }
 
   addItem(item) {
