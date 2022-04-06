@@ -27,9 +27,7 @@ let userId;
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData);
-    userId = userData._id;
-    //Пробовал через userInfo значение в переменной изменить. Не получилось.
-    //Удалять не стал. Подскажите где ошибка.
+    userId = userInfo.getUserId();
     cardsRender.renderItems(cards);
   })
   .catch((err) => {
@@ -53,12 +51,12 @@ const popupWithAvatarUpdate = new PopupWithForm(
         .addAvatar(formValues)
         .then((result) => {
           profileAvatar.src = result.avatar;
+          popupWithAvatarUpdate.close();
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
-          popupWithAvatarUpdate.close();
           renderSaving(false, ".popup__form_type_profile-avatar");
         });
       //---------------------------------------------------------------------
@@ -68,12 +66,7 @@ const popupWithAvatarUpdate = new PopupWithForm(
   renderSaving
 );
 
-const userInfo = new UserInfo(
-  profileTitle,
-  profileSubtitle,
-  profileAvatar,
-  userId
-);
+const userInfo = new UserInfo(profileTitle, profileSubtitle, profileAvatar);
 
 const popupWithFormProfile = new PopupWithForm(
   {

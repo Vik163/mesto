@@ -3,7 +3,12 @@ export default class UserInfo {
     this._profileTitle = profileTitle;
     this._profileSubtitle = profileSubtitle;
     this._profileAvatar = profileAvatar;
-    this._userId = userId; //
+    this._userId = userId;
+  }
+
+  getUserId() {
+    this._userId = this._objId;
+    return this._userId;
   }
 
   getUserInfo() {
@@ -18,9 +23,9 @@ export default class UserInfo {
 
   setUserInfo(obj) {
     const { name, about, avatar, _id } = obj;
+    this._objId = _id;
     this._profileTitle.textContent = name;
     this._profileSubtitle.textContent = about;
     this._profileAvatar.src = avatar;
-    this._userId = _id; // здесь id находит, но не меняет
   }
 }
