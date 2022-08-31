@@ -23,9 +23,8 @@
   - popup
   - webpack
 
-  ***
+***
 
-    {
       "name": "mesto",
       "version": "1.0.0",
       "scripts": {
@@ -53,8 +52,7 @@
      "dependencies": {
        "core-js": "^3.21.1"
       }
-    }
 
-  ***
+***
 
 
