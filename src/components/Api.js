@@ -3,6 +3,7 @@ class Api {
     this._settings = settings;
   }
 
+  // Проверка получения ответа ------
   _checkResponse(res) {
     if (res.ok) {
       return res.json();

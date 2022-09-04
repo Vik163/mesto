@@ -4,7 +4,6 @@ export class Card {
     obj,
     { addLike, deleteLike },
     cardSelector,
-    profileAvatar,
     openImagePopup,
     openDeleteCardPopup,
     userId
@@ -13,7 +12,6 @@ export class Card {
     this._text = obj.name;
     this._image = obj.link;
     this._cardSelector = cardSelector;
-    this._profileAvatar = profileAvatar;
     this.openImagePopup = openImagePopup;
     this.openDeleteCardPopup = openDeleteCardPopup;
     this._userId = userId;
@@ -24,6 +22,7 @@ export class Card {
     this._cardBasket = this._element.querySelector(".card__basket");
   }
 
+  // Подготовка template карты -----------------------
   _getTemplate() {
     const cardElement = document
       .querySelector(this._cardSelector)
@@ -33,6 +32,7 @@ export class Card {
     return cardElement;
   }
 
+  // Создание карточки -------------------------------------------
   generateCard() {
     this._setEventListeners();
 
@@ -40,13 +40,14 @@ export class Card {
     this._cardImage.alt = this._text;
     this._element.querySelector(".card__title").textContent = this._text;
 
-    this._checkUserBasket();
-    this._checkUserLike();
+    this._checkUserBasket(); // Иконка корзины удаления
+    this._checkUserLike(); // Лайки
     this._addNumLikes();
 
     return this._element;
   }
 
+  // Отображение иконок удаления собственных карт
   _checkUserBasket() {
     if (!(this._userId === this._obj.owner._id)) {
       this._cardBasket.style.display = "none";
@@ -66,6 +67,7 @@ export class Card {
     });
   }
 
+  // Лайки --------------------------------------------------------
   _checkUserLike() {
     this._obj.likes.forEach((item) => {
       if (item._id === this._userId) {
@@ -84,6 +86,7 @@ export class Card {
       ? this.deleteLike(this._obj, this._element)
       : this.addLike(this._obj, this._element);
   }
+  // ---------------------------------------------------------------
 
   deleteCard(element) {
     this._element = element;

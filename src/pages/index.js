@@ -28,18 +28,20 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData);
     userId = userInfo.getUserId();
-    cardsRender.renderItems(cards);
+    cardsRender.renderItems(cards); // Отображение первоначальных карт
   })
   .catch((err) => {
     console.log(err);
   });
 
+// Классы валидация попапов --------------------------------------------------
 const formValidatorAvatar = new FormValidator(formSettings, formElementAvatar);
 const formValidatorCards = new FormValidator(formSettings, formElementCards);
 const formValidatorProfile = new FormValidator(
   formSettings,
   formElementProfile
 );
+// ---------------------------------------------------------------------------
 
 const popupWithImage = new PopupWithImage(popupOpenImage, ".popup_type_image");
 const popupWithAvatarUpdate = new PopupWithForm(
@@ -57,7 +59,7 @@ const popupWithAvatarUpdate = new PopupWithForm(
           console.log(err);
         })
         .finally(() => {
-          renderSaving(false, ".popup__form_type_profile-avatar");
+          renderSaving(false, ".popup__form_type_profile-avatar"); // Прелоадер
         });
       //---------------------------------------------------------------------
     },
@@ -101,7 +103,7 @@ const popupWithDeleteCard = new PopupWithConfirmation(
       api
         .deleteCard(obj)
         .then((result) => {
-          createCard(result).deleteCard(item);
+          createCard(result).deleteCard(item); // Удаление нужной карточки со страницы
           popupWithDeleteCard.close();
         })
         .catch((err) => {
@@ -112,14 +114,15 @@ const popupWithDeleteCard = new PopupWithConfirmation(
   }
 );
 
+// Карточка --------------------------------------------------------
 function createCard(obj) {
   const cardElement = new Card(
     obj,
     {
+      // добавить лайк ----------------------------------------
       addLike: (obj, card) => {
         const objData = {};
         obj.likes.push(objData);
-        // добавить лайк ----------------------------------------
         api
           .addLikes(obj)
           .then((result) => {
@@ -133,10 +136,9 @@ function createCard(obj) {
             console.log(err);
           });
       },
-      //----------------------------------------------------------
+      // удалить лайк ----------------------------------------
       deleteLike: (obj, card) => {
         obj.likes.pop();
-        // удалить лайк ----------------------------------------
         api
           .deleteLike(obj)
           .then((result) => {
@@ -153,7 +155,6 @@ function createCard(obj) {
       //----------------------------------------------------------
     },
     ".card-template",
-    profileAvatar,
     openImagePopup,
     openDeleteCardPopup,
     userId
@@ -161,10 +162,12 @@ function createCard(obj) {
   return cardElement;
 }
 
+// Отображение карточек --------------------------------------------
 const cardsRender = new Section(
   {
     renderer: (item) => {
-      return createCard(item).generateCard(); //генерация карты
+      //создание карты --------------
+      return createCard(item).generateCard();
     },
   },
   ".cards__container"
@@ -173,13 +176,13 @@ const cardsRender = new Section(
 const popupWithFormCard = new PopupWithForm(
   {
     popupSelector: ".popup_type_cards",
+    // Добавление карты на сервер --------------------------------------------------
     handleSubmit: (formValues) => {
-      // Добавление карты на сервер --------------------------------------------------
       api
         .addCard(formValues)
         .then((result) => {
           const cardCreate = createCard(result);
-          cardsRender.addItem(cardCreate.generateCard());
+          cardsRender.addItem(cardCreate.generateCard()); // Создание и размещение карты
           popupWithFormCard.close();
         })
         .catch((err) => {
@@ -195,6 +198,7 @@ const popupWithFormCard = new PopupWithForm(
   renderSaving
 );
 
+// Прелоадер ------------------------------------
 function renderSaving(isLoading, popup) {
   const popupSubmit = document
     .querySelector(popup)
@@ -208,9 +212,11 @@ function openDeleteCardPopup(obj, item) {
   popupWithDeleteCard.open(obj, item);
 }
 
+// Включение валидации ------------------------
 formValidatorAvatar.enableValidation();
 formValidatorProfile.enableValidation();
 formValidatorCards.enableValidation();
+// -------------------------------------------
 
 function openImagePopup(title, link) {
   popupWithImage.open(title, link);
@@ -222,8 +228,9 @@ function fillInputsPopupProfile() {
   jobInput.value = userData.about;
 }
 
+// Слушатели --------------------------------------
 buttonEditAvatar.addEventListener("click", () => {
-  formValidatorAvatar.resetValidation();
+  formValidatorAvatar.resetValidation(); // Сброс валидации
   popupWithAvatarUpdate.open();
 });
 
